@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-label="Ilustrasi dokumen">
+  <rect width="800" height="450" fill="#f7f7f8"/>
+  <g fill="none" stroke="#d4d4d8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M330 140h96l48 48v122a14 14 0 0 1-14 14H344a14 14 0 0 1-14-14V154a14 14 0 0 1 14-14z"/>
+    <path d="M426 140v48h48"/>
+    <path d="M367 246h84"/>
+    <path d="M367 278h56"/>
+  </g>
+</svg>

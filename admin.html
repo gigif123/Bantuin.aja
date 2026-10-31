@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dashboard Admin — Bantuin.aja</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-body">
+  <!-- ============ TOP BAR ============ -->
+  <header class="admin-topbar">
+    <div class="admin-topbar-inner">
+      <a href="admin.html" class="admin-brand">
+        <span class="brand-mark">BA</span>
+        <span>Admin Panel</span>
+      </a>
+
+      <div class="admin-topbar-actions">
+        <a href="index.html" class="btn-outline btn-sm" target="_blank" rel="noopener">Lihat Situs</a>
+        <div class="user-profile">
+          <div class="user-avatar" data-user-initial>A</div>
+          <span class="user-name" data-user-name>Admin</span>
+        </div>
+        <button type="button" class="btn-logout-top" data-logout>Keluar</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-wrap">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="dashboard-sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-mark">BA</span>
+        <span>Bantuin<span>.aja</span></span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard" data-section="dashboard" class="active">
+          <span class="nav-ico">📊</span><span>Dashboard</span>
+        </a>
+        <a href="#pesanan" data-section="pesanan">
+          <span class="nav-ico">🧾</span><span>Pesanan</span>
+        </a>
+        <a href="#pembayaran" data-section="pembayaran">
+          <span class="nav-ico">💳</span><span>Pembayaran</span>
+        </a>
+        <a href="#layanan" data-section="layanan">
+          <span class="nav-ico">🗂️</span><span>Layanan</span>
+        </a>
+        <a href="#kategori" data-section="kategori">
+          <span class="nav-ico">🏷️</span><span>Kategori</span>
+        </a>
+        <a href="#pelanggan" data-section="pelanggan">
+          <span class="nav-ico">👥</span><span>Pelanggan</span>
+        </a>
+        <a href="#admins" data-section="admins" data-master-only hidden>
+          <span class="nav-ico">🛡️</span><span>Admin</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="sidebar-hint">Sesi admin Supabase</p>
+        <button type="button" class="btn-logout" data-logout>Keluar</button>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============ MAIN ============ -->
+    <main class="dashboard-main">
+      <header class="dashboard-header">
+        <div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <p class="welcome-text" id="pageSubtitle">Ringkasan pesanan dan aktivitas terbaru.</p>
+        </div>
+        <button type="button" class="btn-primary" id="btnQuickOrder">+ Pesanan Baru</button>
+      </header>
+
+      <!-- ---------- DASHBOARD ---------- -->
+      <section class="admin-section" id="section-dashboard">
+        <div class="setup-alert" id="setupAlert" hidden>
+          <div class="setup-alert-icon" aria-hidden="true">⚙️</div>
+          <div>
+            <strong>Setup belum selesai</strong>
+            <ul id="setupAlertList"></ul>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-icon">🧾</div>
+            <div class="stat-content">
+              <h3 id="statOrders">0</h3>
+              <p>Total Pesanan</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-content">
+              <h3 id="statRevenue">Rp 0</h3>
+              <p>Pendapatan Terkonfirmasi</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-content">
+              <h3 id="statActive">0</h3>
+              <p>Pesanan Aktif</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <h3 id="statCustomers">0</h3>
+              <p>Total Pelanggan</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Aktivitas Terbaru</h2>
+            <a href="#pesanan" class="link-more" data-goto="pesanan">Semua pesanan →</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kode</th>
+                  <th>Pelanggan</th>
+                  <th>Layanan</th>
+                  <th>Nilai</th>
+                  <th>Status</th>
+                  <th>Tanggal</th>
+                </tr>
+              </thead>
+              <tbody id="recentOrdersBody">
+                <tr><td colspan="6" class="td-empty">Memuat data…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PESANAN ---------- -->
+      <section class="admin-section" id="section-pesanan" hidden>
+        <div class="section-bar">
+          <div>
+            <h2>Daftar Pesanan</h2>
+            <p>Setiap pesanan dicatat manual oleh CS setelah kesepakatan di WhatsApp.</p>
+          </div>
+          <button type="button" class="btn-primary" id="btnAddOrder">+ Buat Pesanan</button>
+        </div>
+
+        <div class="admin-tools">
+          <input type="search" id="orderSearch" placeholder="Cari kode, nama, atau nomor WhatsApp…">
+          <select id="orderStatusFilter">
+            <option value="">Semua status</option>
+            <option value="baru">Baru</option>
+            <option value="menunggu_pembayaran">Menunggu Pembayaran</option>
+            <option value="diproses">Diproses</option>
+            <option value="revisi">Revisi</option>
+            <option value="selesai">Selesai</option>
+            <option value="dibatalkan">Dibatalkan</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Pelanggan</th>
+                <th>Layanan</th>
+                <th>Nilai</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody">
+              <tr><td colspan="7" class="td-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- PEMBAYARAN ---------- -->
+      <section class="admin-section" id="section-pembayaran" hidden>
+        <div class="section-bar">
+          <div>
+            <h2>Pembayaran</h2>
+            <p>Catat transfer masuk dan verifikasi sebelum pesanan diproses.</p>
+          </div>
+          <button type="button" class="btn-primary" id="btnAddPayment">+ Catat Pembayaran</button>
+        </div>
+
+        <div class="admin-tools">
+          <input type="search" id="paymentSearch" placeholder="Cari kode pesanan atau nama pelanggan…">
+          <select id="paymentStatusFilter">
+            <option value="">Semua status</option>
+            <option value="belum">Belum</option>
+            <option value="menunggu_konfirmasi">Menunggu Konfirmasi</option>
+            <option value="terkonfirmasi">Terkonfirmasi</option>
+            <option value="gagal">Gagal</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Pesanan</th>
+                <th>Pelanggan</th>
+                <th>Jumlah</th>
+                <th>Metode</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsBody">
+              <tr><td colspan="7" class="td-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- LAYANAN ---------- -->
+      <section class="admin-section" id="section-layanan" hidden>
+        <div class="section-bar">
+          <div>
+            <h2>Kelola Layanan</h2>
+            <p>Harga adalah acuan awal; pelanggan melihatnya sebagai “Mulai dari”.</p>
+          </div>
+          <button type="button" class="btn-primary" id="btnAddService">+ Tambah Layanan</button>
+        </div>
+
+        <div class="admin-tools">
+          <input type="search" id="serviceSearch" placeholder="Cari nama layanan…">
+          <select id="serviceCategoryFilter">
+            <option value="">Semua kategori</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Layanan</th>
+                <th>Kategori</th>
+                <th>Harga Mulai</th>
+                <th>Estimasi</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody">
+              <tr><td colspan="6" class="td-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- KATEGORI ---------- -->
+      <section class="admin-section" id="section-kategori" hidden>
+        <div class="section-bar">
+          <div>
+            <h2>Kategori Layanan</h2>
+            <p>Enam kategori utama tampil di landing page dan filter katalog.</p>
+          </div>
+          <button type="button" class="btn-primary" id="btnAddCategory">+ Tambah Kategori</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Kategori</th>
+                <th>Deskripsi</th>
+                <th>Urutan</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesBody">
+              <tr><td colspan="5" class="td-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- PELANGGAN ---------- -->
+      <section class="admin-section" id="section-pelanggan" hidden>
+        <div class="section-bar">
+          <div>
+            <h2>Data Pelanggan</h2>
+            <p>Pelanggan tidak punya akun — data diisi CS saat konsultasi.</p>
+          </div>
+          <button type="button" class="btn-primary" id="btnAddCustomer">+ Tambah Pelanggan</button>
+        </div>
+
+        <div class="admin-tools">
+          <input type="search" id="customerSearch" placeholder="Cari nama, WhatsApp, atau email…">
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>WhatsApp</th>
+                <th>Email</th>
+                <th>Catatan</th>
+                <th>Sejak</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="customersBody">
+              <tr><td colspan="6" class="td-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- ADMIN ---------- -->
+      <section class="admin-section" id="section-admins" hidden>
+        <div class="section-bar">
+          <div>
+            <h2>Kelola Admin</h2>
+            <p>Hanya admin master yang bisa memberi atau mencabut akses admin.</p>
+          </div>
+          <button type="button" class="btn-primary" id="btnAddAdmin">+ Tambah Admin</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Peran</th>
+                <th>Sejak</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminsBody">
+              <tr><td colspan="5" class="td-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <button type="button" class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Buka menu admin">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- ============ MODAL ============ -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">Form</h2>
+        <button type="button" class="modal-close" id="modalClose" aria-label="Tutup">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="config/supabase.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

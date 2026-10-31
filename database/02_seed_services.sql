@@ -1,0 +1,12 @@
+-- ============================================================
+-- CATATAN: file ini sudah TIDAK DIPAKAI.
+-- ============================================================
+-- Seed layanan lama (Bimbingan Akademik, Konsultasi Profesional,
+-- Les Privat, Proofreading) sudah digantikan oleh katalog baru
+-- sesuai konsep "Joki Tugas & Layanan Akademik".
+--
+-- Jalankan file berikut di Supabase > SQL Editor:
+--   04_kategori_katalog.sql
+--
+-- File 04 juga otomatis menghapus 4 layanan seed lama di atas,
+-- jadi tidak perlu menjalankan apa pun dari file ini.

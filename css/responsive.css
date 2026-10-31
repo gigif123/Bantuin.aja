@@ -1,0 +1,388 @@
+/* ============================================================
+   Bantuin.aja - Responsive Styles
+   Breakpoint: 1024 / 900 / 768 / 480
+   ============================================================ */
+
+/* ---------- Tablet lebar ---------- */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 64px 0 56px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .hero h1 {
+    max-width: 22ch;
+  }
+
+  .hero-card {
+    max-width: 560px;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .consult-card {
+    position: static;
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 32px;
+  }
+
+  .steps-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cta-wa {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 40px 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  /* Navbar */
+  .navbar .container {
+    position: relative;
+    gap: 12px;
+  }
+
+  .nav-brand {
+    font-size: 0.875rem;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: var(--header-height);
+    left: -20px;
+    right: -20px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 12px 20px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-menu a {
+    padding: 12px 0;
+    font-size: 0.9375rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .nav-menu a:last-child {
+    border-bottom: none;
+  }
+
+  /* Tombol WA pindah ke dalam menu */
+  .nav-actions .btn-wa {
+    display: none;
+  }
+
+  .nav-wa-mobile {
+    display: block;
+    margin-top: 10px;
+    padding: 11px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--wa);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 48px 0 48px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.75rem, 1.4rem + 2vw, 2.25rem);
+    max-width: none;
+  }
+
+  .hero-lead {
+    font-size: 1rem;
+  }
+
+  .hero-card {
+    padding: 22px;
+  }
+
+  .hero-specs {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-specs > div {
+    padding: 12px 0;
+  }
+
+  .hero-specs > div + div {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--border-light);
+  }
+
+  /* Trust strip */
+  .trust-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-item {
+    padding: 18px 0;
+  }
+
+  .trust-item + .trust-item {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Grid */
+  .features-grid,
+  .info-grid,
+  .steps-grid,
+  .steps-grid--3 {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .steps-grid--3 {
+    row-gap: 24px;
+  }
+
+  .features-grid,
+  .info-grid {
+    gap: 0;
+  }
+
+  /* Judul seksi */
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 32px;
+  }
+
+  .section-head .section-subtitle {
+    margin-bottom: 0;
+  }
+
+  /* Header halaman */
+  .page-header {
+    padding: 40px 0 28px;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+  }
+
+  /* Filter */
+  .filter-section {
+    padding: 20px 0;
+  }
+
+  .filter-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-field {
+    justify-content: space-between;
+  }
+
+  .sort-field select {
+    flex: 1;
+  }
+
+  .chip-row {
+    gap: 6px;
+  }
+
+  .chip {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  /* Katalog & detail */
+  .list-section {
+    padding: 28px 0 56px;
+  }
+
+  .detail-section {
+    padding: 20px 0 56px;
+  }
+
+  .detail-body {
+    padding: 20px 18px 24px;
+  }
+
+  .detail-body h1 {
+    font-size: 1.3rem;
+  }
+
+  .detail-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .detail-buttons {
+    flex-direction: column;
+  }
+
+  .detail-buttons .btn-wa,
+  .detail-buttons .btn-outline {
+    width: 100%;
+  }
+
+  /* CTA */
+  .cta-wa {
+    padding: 32px 22px;
+  }
+
+  .cta-wa-actions {
+    width: 100%;
+  }
+
+  .cta-wa-actions .btn-wa,
+  .cta-wa-actions .btn-outline {
+    flex: 1 1 auto;
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    padding-bottom: 36px;
+  }
+
+  .footer-brand-col {
+    grid-column: 1 / -1;
+  }
+
+  footer {
+    padding: 48px 0 28px;
+  }
+
+  .copyright {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .wa-fab {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .wa-fab svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* ---------- Mobile kecil ---------- */
+@media (max-width: 480px) {
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hero-meta li {
+    padding-right: 0;
+  }
+
+  .hero-meta li + li {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .service-actions {
+    grid-template-columns: 1fr;
+  }
+
+  /* Di layar sangat kecil, grid kartu dipaksa satu kolom
+     agar minmax(300px) tidak melebihi lebar layar. */
+  .services-grid,
+  .category-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-price-box strong {
+    font-size: 1.3rem;
+  }
+}
