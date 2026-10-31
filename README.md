@@ -37,7 +37,11 @@ Bantuin.aja/
 │   ├── 04_kategori_katalog.sql   6 kategori + 33 layanan
 │   ├── 05_diagnosa_admin.sql     Cek konfirmasi email + status admin
 │   └── 06_admin_management.sql   Kelola admin dari dashboard
-└── assets/images/placeholder.svg
+└── assets/images/
+    ├── placeholder.svg           Gambar cadangan lama
+    ├── logo-bantuin-aja.png      Logo (versi gelap)
+    ├── logo-bantuin-aja-light.png Logo (versi putih, untuk latar gelap)
+    └── covers/                   Cover katalog per kategori (6 SVG + cadangan)
 ```
 
 > `02_seed_services.sql` sudah tidak dipakai (digantikan `04_kategori_katalog.sql`).

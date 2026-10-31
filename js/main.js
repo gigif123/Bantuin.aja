@@ -227,12 +227,35 @@ function waMessageForService(svc, opts = {}) {
   return lines.join('\n');
 }
 
+/* ---------- Gambar layanan: pakai cover kategori bila kosong ---------- */
+const CATEGORY_COVERS = [
+  { match: /laporan|praktikum/i, src: 'assets/images/covers/cover-laporan-praktikum.svg' },
+  { match: /pemrograman|program|koding|coding/i, src: 'assets/images/covers/cover-pemrograman.svg' },
+  { match: /penulisan|tulis|esai|makalah/i, src: 'assets/images/covers/cover-penulisan.svg' },
+  { match: /presentasi|dokumen|slide/i, src: 'assets/images/covers/cover-presentasi.svg' },
+  { match: /data|analisis|statistik/i, src: 'assets/images/covers/cover-data.svg' },
+  { match: /tugas|joki|sekolah|kuliah/i, src: 'assets/images/covers/cover-joki-tugas.svg' },
+];
+
+const DEFAULT_COVER = 'assets/images/covers/cover-lainnya.svg';
+
+function isPlaceholderImage(src) {
+  return !src || /(^|\/)placeholder\.svg(\?|#|$)/i.test(String(src));
+}
+
+function serviceImage(svc) {
+  if (svc && !isPlaceholderImage(svc.image_url)) return svc.image_url;
+  const category = (svc && svc.category) || '';
+  const cover = CATEGORY_COVERS.find((item) => item.match.test(category));
+  return cover ? cover.src : DEFAULT_COVER;
+}
+
 /* ---------- Kartu layanan (dipakai beranda & katalog) ---------- */
 function serviceCardHtml(svc) {
   const title = escapeHtml(svc.title);
   const desc = escapeHtml(svc.short_description || svc.description || '');
   const category = escapeHtml(svc.category || 'Layanan');
-  const image = escapeHtml(svc.image_url || 'assets/images/placeholder.svg');
+  const image = escapeHtml(serviceImage(svc));
 
   const duration = svc.duration
     ? `<span class="service-meta">

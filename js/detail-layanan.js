@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const title = escapeHtml(svc.title);
     const category = escapeHtml(svc.category || 'Layanan');
     const description = escapeHtml(svc.description || svc.short_description || '');
-    const image = escapeHtml(svc.image_url || 'assets/images/placeholder.svg');
+    const image = escapeHtml(serviceImage(svc));
     const categoryLink = `layanan.html?kategori=${encodeURIComponent(svc.category || '')}`;
 
     document.title = `${svc.title} — Bantuin.aja`;
