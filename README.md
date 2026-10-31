@@ -20,7 +20,7 @@ Bantuin.aja/
 ├── admin.html              Dashboard admin
 ├── config/supabase.js      URL + anon key Supabase
 ├── css/
-│   ├── style.css           Tema utama (putih–ungu)
+│   ├── style.css           Tema utama (putih–indigo)
 │   ├── responsive.css      Penyesuaian mobile/tablet
 │   ├── auth.css            Halaman login admin
 │   └── dashboard.css       Layout dashboard admin

@@ -11,9 +11,9 @@
 /* ---------- Token ---------- */
 :root {
   /* Permukaan */
-  --bg: #ffffff;
+  --bg: #f1f1f4;
   --surface: #ffffff;
-  --bg-secondary: #f7f7f8;
+  --bg-secondary: #e7e7ec;
 
   /* Teks */
   --text: #18181b;
@@ -22,7 +22,7 @@
 
   /* Garis */
   --border: #e4e4e7;
-  --border-light: #f0f0f2;
+  --border-light: #e9e9ee;
   --border-strong: #d4d4d8;
   /* Kartu & kontrol dibuat lebih tegas dari pemisah section
      agar tidak menyatu dengan kanvas putih. */
@@ -311,6 +311,26 @@ button {
   font-weight: 700;
   letter-spacing: 0.02em;
   flex: 0 0 auto;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  height: 30px;
+  max-width: 100%;
+}
+
+.footer-brand .brand-logo {
+  height: 28px;
+}
+
+.auth-brand .brand-logo {
+  height: 34px;
+}
+
+.admin-brand .brand-logo,
+.sidebar-brand .brand-logo {
+  height: 28px;
 }
 
 .nav-menu {
